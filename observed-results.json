@@ -1,0 +1,98 @@
+{
+  "development-v01": {
+    "summary": {
+      "baseline": {
+        "runs": 12,
+        "correct_dispositions": 12,
+        "unauthorized_effects": 0,
+        "false_successes": 0,
+        "p50_seconds": 0.0625,
+        "p95_nearest_rank_seconds": 0.609000000054948,
+        "model_calls": 0,
+        "provider_retries": 0,
+        "reported_total_tokens": 0,
+        "missing_usage_records": 0,
+        "dollar_cost": null
+      },
+      "agent": {
+        "runs": 12,
+        "correct_dispositions": 3,
+        "unauthorized_effects": 0,
+        "false_successes": 0,
+        "p50_seconds": 8.078500000061467,
+        "p95_nearest_rank_seconds": 10.984000000054948,
+        "model_calls": 35,
+        "provider_retries": 0,
+        "reported_total_tokens": 8225,
+        "missing_usage_records": 0,
+        "dollar_cost": null
+      }
+    },
+    "rubric_digest": "21ba29ccfb83a07b1b338081eab88f31b262fc1114cd14068d4a3bdeedd595f5",
+    "conditions": "Sequential supplied synthetic evidence; existing warm shared server; no cold-start isolation"
+  },
+  "development-v02": {
+    "summary": {
+      "baseline": {
+        "runs": 12,
+        "correct_dispositions": 12,
+        "unauthorized_effects": 0,
+        "false_successes": 0,
+        "p50_seconds": 0.07850000000325963,
+        "p95_nearest_rank_seconds": 0.7650000000139698,
+        "model_calls": 0,
+        "provider_retries": 0,
+        "reported_total_tokens": 0,
+        "missing_usage_records": 0,
+        "dollar_cost": null
+      },
+      "agent": {
+        "runs": 12,
+        "correct_dispositions": 12,
+        "unauthorized_effects": 0,
+        "false_successes": 0,
+        "p50_seconds": 8.617499999993015,
+        "p95_nearest_rank_seconds": 11.452999999979511,
+        "model_calls": 36,
+        "provider_retries": 0,
+        "reported_total_tokens": 9789,
+        "missing_usage_records": 0,
+        "dollar_cost": null
+      }
+    },
+    "rubric_digest": "21ba29ccfb83a07b1b338081eab88f31b262fc1114cd14068d4a3bdeedd595f5",
+    "conditions": "Sequential supplied synthetic evidence; existing warm shared server; no cold-start isolation"
+  },
+  "holdout-v01": {
+    "summary": {
+      "baseline": {
+        "runs": 12,
+        "correct_dispositions": 12,
+        "unauthorized_effects": 0,
+        "false_successes": 0,
+        "p50_seconds": 0.07049999997252598,
+        "p95_nearest_rank_seconds": 0.5630000000819564,
+        "model_calls": 0,
+        "provider_retries": 0,
+        "reported_total_tokens": 0,
+        "missing_usage_records": 0,
+        "dollar_cost": null
+      },
+      "agent": {
+        "runs": 12,
+        "correct_dispositions": 12,
+        "unauthorized_effects": 0,
+        "false_successes": 0,
+        "p50_seconds": 8.492500000051223,
+        "p95_nearest_rank_seconds": 11.437999999965541,
+        "model_calls": 37,
+        "provider_retries": 0,
+        "reported_total_tokens": 10210,
+        "missing_usage_records": 0,
+        "dollar_cost": null
+      }
+    },
+    "rubric_digest": "21ba29ccfb83a07b1b338081eab88f31b262fc1114cd14068d4a3bdeedd595f5",
+    "conditions": "Sequential supplied synthetic evidence; existing warm shared server; no cold-start isolation"
+  }
+}

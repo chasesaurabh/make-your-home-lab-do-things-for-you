@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "home-lab-maintenance-desk"
+version = "0.1.0"
+description = "Dedicated synthetic durable-job companion for Make Your Home Lab Do Things for You"
+requires-python = ">=3.12,<3.13"
+license = "MIT"
+dependencies = []
+
+[project.scripts]
+maintenance-desk = "maintenance_desk.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["maintenance_desk*"]

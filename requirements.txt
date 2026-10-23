@@ -1,0 +1,2 @@
+# No third-party runtime requirements. Run from source with Python 3.12.
+# Optional wheel building uses the exact setuptools version in pyproject.toml.

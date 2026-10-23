@@ -1,0 +1,15 @@
+{
+  "book_title": "Make Your Home Lab Do Things for You",
+  "book_subtitle": "Build Local AI Agents That Get Things Done",
+  "edition": "First edition (planned)",
+  "status": "development-0.1.0; book edition not frozen",
+  "planned_tag": "book-v1.0.0",
+  "released_tag": null,
+  "released_commit": null,
+  "book_url": null,
+  "book_backlink_commit": null,
+  "license": "MIT",
+  "third_party_runtime_dependencies": [],
+  "fixture_provenance": "Original synthetic worker state created by tests and demo",
+  "model_weights_bundled": false
+}

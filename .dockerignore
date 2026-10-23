@@ -1,0 +1,7 @@
+*
+!maintenance_desk/
+!maintenance_desk/**
+!tests/
+!tests/**
+**/__pycache__/
+**/*.pyc

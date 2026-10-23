@@ -1,0 +1,35 @@
+{
+  "observed_date": "2026-10-23",
+  "scope": "Existing local service; configuration and one cached artifact snapshot observed. No claim of bitwise verification of loaded weights.",
+  "requested_model": "nemotron-super-120b-fp4",
+  "response_model": "nemotron-35-lightning",
+  "vllm_fingerprint": "vllm-0.30.0-7204ef82",
+  "--model": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+  "--served-model-name": "nemotron-35-lightning",
+  "--max-model-len": "262144",
+  "--reasoning-parser": "super_v3",
+  "cached_snapshots": [
+    {
+      "revision": "ff433f5493e25d631c9f12b5d55c674229923d02",
+      "metadata_files": [
+        {
+          "name": "config.json",
+          "sha256": "14a1ad3ab6ec49e09e9c30f8686c8e3ca5b5338ee0eb0c79dff4f285fc29778d"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "sha256": "10f93eabcb9b1602fbb991d6308e787ce1df28ee9cd7a1c6d1e8c3f338b957bc"
+        },
+        {
+          "name": "chat_template.jinja",
+          "sha256": "575fb74f54ed264df9047d0ecce3c98938aae953fb4f50356675706264cbb68a"
+        },
+        {
+          "name": "model.safetensors.index.json",
+          "sha256": "e0ca77ceed3a9511db61dc0ae6dbed2f71e6f6ee9f345fe3352f5cfe50cd094f"
+        }
+      ]
+    }
+  ],
+  "weights_bundled": false
+}
