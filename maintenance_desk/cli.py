@@ -1,5 +1,6 @@
 """Operator CLI and read-only loopback job board."""
 import argparse
+from datetime import datetime, timezone
 import html
 import http.server
 import json
@@ -13,19 +14,55 @@ from .provider import LocalProvider
 
 def board(desk):
     cards = []
+    jobs = desk.jobs()
+    labels = {"succeeded":"Verified complete", "awaiting_approval":"Waiting for your approval",
+              "ready":"Approved; ready to run", "failed":"Stopped; inspect the evidence",
+              "needs_reconciliation":"Outcome needs inspection", "cancelled":"Cancelled",
+              "queued":"Queued", "inspecting":"Inspecting evidence", "applying":"Applying approved change",
+              "verifying":"Checking the outcome"}
+    event_labels = {"admitted":"Job received", "claimed":"Worker started", "inspection":"Evidence inspected",
+                    "approved":"Exact proposal approved", "intent_persisted":"Operation intent saved",
+                    "verifying":"Independent check started", "verified":"Output verified"}
+    def stamp(value):
+        return datetime.fromtimestamp(value,timezone.utc).strftime("%H:%M:%S UTC")
     for job in desk.jobs():
         proposal = job["proposal"]
         visible = {key: job[key] for key in ("id", "state", "payload", "attempts", "deadline", "approval", "error", "result")}
         visible["proposal"] = proposal
         visible["proposal_digest"] = digest(proposal) if proposal else None
         visible["timeline"] = desk.timeline(job["id"])
-        cards.append("<article><h2>"+html.escape(job["state"])+"</h2><pre>"+
-                     html.escape(json.dumps(visible, indent=2))+"</pre></article>")
+        change = ""
+        if proposal:
+            change = ("<p class='change'>Batch limit <strong>"+str(proposal["before"])+" &rarr; "+
+                      str(proposal["value"])+"</strong></p><p>Synthetic worker &middot; target version "+
+                      str(proposal["target_version"])+" &middot; approval window ends "+stamp(proposal["expires"])+".</p>")
+        outcome = (job["result"] or {}).get("kind")
+        explanation = {"effect_verified":"The target receipt, manifest and both output files agree.",
+                       "read_only_digest":"The fixture is healthy. No change was needed.",
+                       "escalated":"The evidence did not justify an automatic proposal.",
+                       "effect_verified_after_cancel":"The effect occurred before cancellation and remains verified."}.get(
+                           outcome, "Review the exact proposal before granting permission." if proposal else "The job has not reached a verified outcome.")
+        timeline = "".join("<li><time>"+stamp(event["at"])+"</time> "+
+                           html.escape(event_labels.get(event["kind"],event["kind"].replace("_"," ")))+"</li>"
+                           for event in visible["timeline"][-8:])
+        cards.append("<article><span class='eyebrow'>"+html.escape(job["payload"]["case"])+" &middot; "+
+                     html.escape(job["payload"]["mode"])+"</span><h2>"+html.escape(labels.get(job["state"],job["state"]))+
+                     "</h2><p>"+explanation+"</p>"+change+"<ol>"+timeline+"</ol>"+
+                     "<details><summary>Exact proposal, receipt and technical evidence</summary><pre>"+
+                     html.escape(json.dumps(visible,indent=2))+"</pre></details></article>")
+    verified = sum(job["state"] == "succeeded" for job in jobs)
+    waiting = sum(job["state"] == "awaiting_approval" for job in jobs)
     return ("<!doctype html><html lang='en'><meta charset='utf-8'><meta name='viewport' content='width=device-width'>"
-            "<title>Maintenance Desk</title><style>body{font:16px system-ui;max-width:950px;margin:2rem auto;padding:0 1rem;background:#f4f3ef;color:#172f3a}"
-            "article{background:white;border:1px solid #bec8cc;padding:1rem;margin:1rem 0;border-radius:8px}pre{white-space:pre-wrap;overflow-wrap:anywhere}"
-            "h1,h2{line-height:1.2}</style><h1>Maintenance Desk</h1><p>Read-only synthetic job board. Operator commands issue approvals. "
-            "This board has no authentication; keep it on loopback and use synthetic data.</p>"+"".join(cards)+"</html>")
+            "<title>Maintenance Desk</title><style>body{font:16px/1.55 system-ui;max-width:1020px;margin:2.5rem auto;padding:0 1.3rem;background:#f4f3ef;color:#172f3a}"
+            "article{background:#fff;border:1px solid #d6dfdf;padding:1.6rem;margin:1.2rem 0;border-radius:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}"
+            "h1{font-size:36px;margin-bottom:.2rem}h2{font-size:24px;margin:.3rem 0}.eyebrow{color:#5b6b70;text-transform:uppercase;letter-spacing:.08em;font-size:12px}"
+            ".stats{padding:1rem 1.4rem;background:#173e46;color:white;border-radius:10px}.change{font-size:20px}ol{padding-left:1.3rem}"
+            "time{color:#63787d;font-size:13px;margin-right:.7rem}summary{cursor:pointer;font-size:14px;color:#365e65}p{margin:.7rem 0}</style>"
+            "<header><span class='eyebrow'>Local execution lab</span><h1>Maintenance Desk</h1><p>Give every job a finish line you can check.</p></header>"
+            "<div class='stats'>"+str(len(jobs))+" jobs &nbsp; &middot; &nbsp; "+str(verified)+" verified &nbsp; &middot; &nbsp; "+str(waiting)+
+            " waiting for approval</div>"+"".join(cards)+
+            "<footer><p>Read-only board &middot; Synthetic data only &middot; Times shown in UTC.</p>"
+            "<p>Approvals are issued through operator commands. This board has no authentication; keep it on loopback.</p></footer></html>")
 
 
 def serve(root, port):
