@@ -1,4 +1,4 @@
-# Tested versions and limits — development 0.1.0
+# Tested versions and limits — book-v1.0.0 / application 0.1.0
 
 | Component | Observed/tested configuration | Scope |
 |---|---|---|

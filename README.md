@@ -3,14 +3,14 @@
 
 **Maintenance Desk is a synthetic execution lab.** It persists jobs, reads bounded diagnostics/runbooks/incidents, proposes one disposable setting change, waits for operator approval, applies it and verifies actual output bytes. Jobs and the target use separate databases to expose uncertain external effects.
 
-MIT licensed. The book is in production. The verified published-book link will be added after publication. The finished edition's `book-v1.0.0` tag has not been created.
+MIT licensed. The book is in production. The verified published-book link will be added after publication. The immutable companion edition is `book-v1.0.0`; resolve its full commit with `git rev-parse book-v1.0.0^{commit}`. Application package version remains 0.1.0. The earlier `v0.1.0` development tag is retained unchanged.
 
 ## Requirements and first run
 
 Use Python 3.12 and Git. The source workflow has no third-party runtime packages. No GPU, model, account, credentials, or real home-lab services are needed for deterministic work. Keep data directories disposable.
 
 ```powershell
-git clone https://github.com/chasesaurabh/make-your-home-lab-do-things-for-you.git
+git clone --branch book-v1.0.0 https://github.com/chasesaurabh/make-your-home-lab-do-things-for-you.git
 cd make-your-home-lab-do-things-for-you
 python --version
 python -m unittest discover -s tests -v
