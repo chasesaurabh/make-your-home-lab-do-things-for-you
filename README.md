@@ -3,7 +3,7 @@
 
 **Maintenance Desk is a synthetic execution lab.** It persists jobs, reads bounded diagnostics/runbooks/incidents, proposes one disposable setting change, waits for operator approval, applies it and verifies actual output bytes. Jobs and the target use separate databases to expose uncertain external effects.
 
-MIT licensed. The book is in production. The verified published-book link will be added after publication. The immutable companion edition is `book-v1.0.0`; resolve its full commit with `git rev-parse book-v1.0.0^{commit}`. Application package version remains 0.1.0. The earlier `v0.1.0` development tag is retained unchanged.
+MIT licensed. [Read the book on Kindle](https://www.amazon.com/dp/B0HP7C83W8). The immutable companion edition is `book-v1.0.0`; resolve its full commit with `git rev-parse book-v1.0.0^{commit}`. Application package version remains 0.1.0. The earlier `v0.1.0` development tag is retained unchanged.
 
 ## Requirements and first run
 
