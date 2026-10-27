@@ -5,6 +5,10 @@
 
 MIT licensed. [Read the book on Kindle](https://www.amazon.com/dp/B0HP7C83W8). The immutable companion edition is `book-v1.0.0`; resolve its full commit with `git rev-parse book-v1.0.0^{commit}`. Application package version remains 0.1.0. The earlier `v0.1.0` development tag is retained unchanged.
 
+![Maintenance Desk showing a synthetic job waiting for operator approval](docs/images/m3-preview.jpg)
+
+Actual read-only board from a deterministic synthetic run on October 26, 2026, using Windows and CPython 3.12.14. No model or real service was used; the pictured job was not approved or applied. See [tested environments](VERSION_MATRIX.md) for the wider recorded scope.
+
 ## Requirements and first run
 
 Use Python 3.12 and Git. The source workflow has no third-party runtime packages. No GPU, model, account, credentials, or real home-lab services are needed for deterministic work. Keep data directories disposable.
@@ -115,3 +119,7 @@ The Docker base is pinned by digest. Each lane compares deterministic and agent 
 | 17–20: timeline, comparison, rehearsal | cli.py, evaluate.py, rehearsal.py |
 
 No shell, SSH, host administration, production restarts, actual backups, user-file transformation, credential management, MCP transport, voice/vision or multiple-agent implementation is included. See [security](SECURITY.md), [contributing](CONTRIBUTING.md), [versions](VERSION_MATRIX.md), [manifest](release-manifest.json), and [MIT license](LICENSE). Manuscript, art, production assets, weights, private logs and personal data stay outside this repository.
+
+## Choose your next project
+
+[Start here: choose a Practical AI Home Lab book](https://github.com/chasesaurabh/give-your-home-labs-ai-a-memory/blob/codex/memory-companion/docs/start-here.md), or [browse the series on Amazon](https://www.amazon.com/dp/B0HP7F73K4). Each book can be read on its own.
