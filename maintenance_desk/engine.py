@@ -103,7 +103,7 @@ class Desk:
         # A long legacy name was not retained, so its ownership is ambiguous.
         legacy = self.db.execute("SELECT id,payload FROM jobs WHERE event_key=?", (f"{schedule[:40]}-{period}-{bucket}",)).fetchone()
         if legacy:
-            if len(schedule) > 40:
+            if len(schedule) >= 40:
                 raise Rejected("ambiguous legacy long schedule key; review it before admitting this interval")
             if legacy["payload"] != canonical(payload):
                 raise Rejected("event key conflict")

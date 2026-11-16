@@ -194,8 +194,11 @@ class Inbox:
             raise Rejected('output inventory is missing, partial or unexpected; inspect it')
         for name, content in expected.items():
             path = directory / name
-            if path.is_symlink() or not path.is_file() or path.read_bytes() != content:
+            if path.is_symlink() or not path.is_file():
                 raise Rejected('output bytes do not match the approved operation')
+            with path.open('rb') as stream:
+                if stream.read(len(content) + 1) != content:
+                    raise Rejected('output bytes do not match the approved operation')
         return receipt
 
     def apply(self, job, *, fault=None):

@@ -1,0 +1,17 @@
+{
+  "measurement_commit": "6aca27f9a3ed9d4e76f3a5114f0d5ed3a2ac5029",
+  "frozen_utc": "2026-11-16T03:34:11.019310+00:00",
+  "files": {
+    "maintenance_desk/inbox.py": "8143d59daa6ad421a1887a84523686fddc746a0a73c202416b7f903cf274af88",
+    "maintenance_desk/provider.py": "224293b3cb0fad65e46b11a1ea72c6d7ae3e79d2c994e054d58829b65c6882e0",
+    "maintenance_desk/engine.py": "6dc793b644dd1b093efd3664506a55b391be10305d05db2e8ae307019752f2ee",
+    "maintenance_desk/contracts.py": "08e9904c4718039d2ff4786c4a25106310d353fba325569dd8655957cb8dbc1f",
+    "maintenance_desk/evaluate.py": "42cec61fa04842637079348abf6133b603099d2a103a3b31393fff964196ae2d",
+    "research/run_study.py": "d8ec6a8eb8024d42d0c3a17f1123d1cb4f4b94edcf409313eead37d34a4a69b7",
+    "research/study-plan.json": "2ee0f60a3015077631b7c4953b5e0dd3836d6971c2a55458ed4dfa7d8b0baf05",
+    "research/inbox-fixtures.json": "3a5b1ca4d02d145142786c6de1a6b3d1efefff3b5ce4ddfe435f8b5efcf7aad0",
+    "configs/model-artifacts.lock.json": "4737d7c65939051d067d951b8ca0fcaba5bdfd184530063933bffa05d1a79679"
+  },
+  "public_raw_bytes": "Unchanged from completed synthetic study records; reviewed for personal paths and secrets before inclusion.",
+  "scope": "Exact measurement source; later release schedule/CLI/docs/analysis changes are separate from frozen inference behavior."
+}

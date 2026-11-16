@@ -1,15 +1,49 @@
-# Observed development evidence
+# Observed local-model evidence
 
-October 23, 2026. These results describe the supplied synthetic cases under one configuration. They are not general model benchmarks, a security certification, real backup tests or household time-savings evidence.
+Measured November 16, 2026 UTC. Four actual inference profiles, synthetic inputs and actual disposable file effects. Twelve distinct maintenance cases and twelve distinct notes, repeated three times. Repetitions are not independent new tasks. Raw requests/responses, failures and scores are retained in `research/results`; no private paths, credentials, book prose or weights are included.
 
-The first development run used a static JSON decision schema. The deterministic path reached the expected disposition in 12/12 cases; the model-assisted path did so in 3/12. Repeated observation requests caused most model failures; one decision violated schema. Application checks refused those requests. The original failed run is retained in the book production evidence.
+## Maintenance
 
-The revised request explicitly lists remaining observation tools and constrains the JSON schema to that list. On the second development run, both paths reached the expected disposition in 12/12. The model-assisted path used 36 calls and 9,789 reported tokens. The prompt/rubric were then frozen before the first holdout.
+The deterministic baseline reached 36/36 for every profile. Model-assisted outcomes:
 
-On twelve additional holdout variants, both paths reached the expected disposition in 12/12. There were zero observed unauthorized effects and zero false-success outcomes in this fixed suite. Model-assisted triage used 37 calls and 10,210 reported tokens; its median case time was 8.493 seconds and nearest-rank p95 was 11.438 seconds. Baseline median was 0.0705 seconds and p95 0.563 seconds. Twelve observations are a small sample; p95 here is the largest observation, not a population estimate. No run was excluded.
+| Profile | Correct /36 | Median seconds | p95 seconds | HTTP calls |
+|---|---:|---:|---:|---:|
+| 2B | 27/36 | 2.980 | 5.090 | 111 |
+| 9B | 36/36 | 2.375 | 4.007 | 102 |
+| 27B | 36/36 | 3.123 | 4.381 | 93 |
+| 122B | 35/36 | 5.909 | 8.704 | 97 |
 
-These fixtures did not establish a completion advantage for the model. The deterministic workflow remains the default execution path. The optional bounded agent demonstrates model-selected observations and explanations inside application-owned policy; it does not justify multiple agents or replacing deterministic execution.
+## Inbox
 
-The server was existing, warm and shared; requests ran sequentially. Timing includes application/fixture work and was not isolated from other workloads. Dollar cost is unknown; no power or depreciation measurement was made. “No API bill” must not be interpreted as free operation. Tests of scripted providers are separate from real inference.
+| Profile | Correct labels /36 | Exact batches /9 | Median seconds | p95 seconds |
+|---|---:|---:|---:|---:|
+| 2B | 27/36 | 3/9 | 4.999 | 5.677 |
+| 9B | 33/36 | 6/9 | 5.650 | 6.013 |
+| 27B | 36/36 | 9/9 | 10.232 | 11.184 |
+| 122B | 36/36 | 9/9 | 12.969 | 18.049 |
 
-See observed-results.json for aggregate values, model-manifest.json for service/artifact identity, and evaluate.py for the frozen rubric/evaluator. The additional holdout cases are narrow variants of the same fixtures and remain inspectable; they do not prove out-of-distribution generalization. Synthetic automatic operator grants occur only in new temporary evaluation directories, not in normal jobs.
+All model batches supplied 36 grounded quotes and 9 verified copies per profile. Grounded quotations and verified files do not establish correct semantic labels. The no-model staging route assigns everything to uncertain: 9/36 matching labels, 0/9 exact batches, 9/9 verified copies. It is not a competitive semantic classifier.
+
+No unauthorized maintenance effects or false successes were observed under the recorded definitions. The 2B model nevertheless missed 9 outcomes, and 122B unnecessarily escalated one. No failed run is removed. These are finite-suite observations, not general accuracy or safety estimates.
+
+## Recompute
+
+```powershell
+python research/analyze_study.py research/results/holdout-2b.json `
+  research/results/holdout-9b.json research/results/holdout-27b.json `
+  research/results/holdout-122b.json --output my-summary.json
+```
+
+Use a new output filename. The verifier rejects incomplete studies, missing/duplicate rows, changed configuration fingerprints, altered expected maintenance outcomes, mismatched stored scores and ungrounded quotes. Seven regression tests exercise these integrity checks. `research/summary.json` is the shipped recomputation, with hashes of each raw file.
+
+For a new inference run, start a pinned profile using `docs/model-setup.md`, then run `research/run_study.py --help`. Use its explicit endpoint, model alias, profile label, holdout lane, three repeats and a new output file. The profile label is not server-identity verification; retain startup artifact checks and actual runtime configuration.
+
+## Conditions and provenance
+
+RTX PRO6000 Blackwell 97,887 MiB, driver 582.16; vLLM 0.30.0 pinned image; Linux Python 3.12.15 / SQLite 3.40.1 harness. One warmed model at a time, one sequence, context 4096, eager execution, temperature 0, thinking disabled. Smaller profiles are unquantized; 122B uses ModelOpt NVFP4 and FP8 KV cache. Memory fractions were 0.18 / 0.35 / 0.73 / 0.88, not minimum-VRAM recommendations.
+
+Timings include temporary workflow work and were collected on a working host. They are not isolated throughput, cold-start measurements or population-tail estimates. p95 is nearest rank: 35th/36 maintenance observations and maximum/9 inbox batches. First task time is retained separately. Electricity, depreciation and dollar cost were not measured.
+
+`research/measurement-source.json` identifies the frozen measurement implementation. Later release changes add review CLI output, evidence analysis, a schedule-key migration edge fix, bounded reads for altered inbox copies and validation of cancelled-but-verified effects during restore; the inference prompts, rubric and task execution in the study remain unchanged. The 122B run used an exact archive of the measurement commit after that unrelated schedule fix was made in the working tree.
+
+Original October development failures and holdout records are retained under `research/legacy`, with root `observed-results.json` and `model-manifest.json` describing that historical configuration. They are not the new model matrix. The maintenance fixtures are published regression cases; the new inbox holdout was reserved from six development notes. Published fixtures are no longer unseen once used for tuning.

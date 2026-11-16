@@ -1,5 +1,7 @@
 """Regressions discovered while independently exercising the original release."""
 import json
+import contextlib
+import io
 from pathlib import Path
 import shutil
 import sqlite3
@@ -10,6 +12,7 @@ from unittest.mock import patch
 from maintenance_desk.contracts import Rejected, canonical, digest
 from maintenance_desk.engine import Desk
 from maintenance_desk.snapshot import checksum, restore, snapshot
+from maintenance_desk.cli import main
 
 
 class RevisionBoundaries(unittest.TestCase):
@@ -33,6 +36,18 @@ class RevisionBoundaries(unittest.TestCase):
         self.now += 3600
         self.assertNotEqual(first, self.desk.tick('x' * 40 + 'alpha'))
 
+    def test_review_prints_digest_without_granting_permission(self):
+        job = self.desk.admit('review', self.payload)
+        self.desk.inspect(job)
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            main(['--data', str(self.root / 'desk'), 'review', job])
+        reviewed = json.loads(output.getvalue())
+        self.assertEqual(digest(self.desk.get(job)['proposal']), reviewed['proposal_digest'])
+        self.assertIsNone(self.desk.get(job)['approval'])
+        self.assertEqual('awaiting_approval', self.desk.get(job)['state'])
+        self.assertEqual(0, self.desk.target.snapshot()['version'])
+
     def test_legacy_short_schedule_identity_is_preserved(self):
         payload = {**self.payload, 'source': 'schedule'}
         old = self.desk.admit(f'daily-3600-{int(self.now // 3600)}', payload)
@@ -44,6 +59,11 @@ class RevisionBoundaries(unittest.TestCase):
         self.desk.admit(f'{"x" * 40}-3600-{int(self.now // 3600)}', {**self.payload, 'source': 'schedule'})
         with self.assertRaisesRegex(Rejected, 'ambiguous legacy'):
             self.desk.tick('x' * 40 + 'alpha')
+
+    def test_legacy_exactly_forty_character_name_is_also_ambiguous(self):
+        self.desk.admit(f'{"x" * 40}-3600-{int(self.now // 3600)}', {**self.payload, 'source': 'schedule'})
+        with self.assertRaisesRegex(Rejected, 'ambiguous legacy'):
+            self.desk.tick('x' * 40)
 
     def test_queued_deadline_releases_capacity(self):
         old = self.desk.admit('old', self.payload, deadline_seconds=1)
@@ -136,5 +156,27 @@ class RevisionBoundaries(unittest.TestCase):
         manifest['files']['desk.sqlite'] = checksum(src / 'desk.sqlite')
         (src / 'snapshot.json').write_text(canonical(manifest))
         with self.assertRaisesRegex(Rejected, 'active worker'):
+            restore(src, dest)
+        self.assertFalse(dest.exists())
+
+    def test_cancelled_verified_effect_is_validated_on_restore(self):
+        job = self.desk.admit('cancel-after-effect', self.payload)
+        self.desk.inspect(job)
+        self.desk.approve(job, digest(self.desk.get(job)['proposal']))
+        original = self.desk.target.apply
+        def cancel_after_commit(*args, **kwargs):
+            receipt = original(*args, **kwargs)
+            self.desk.cancel(job)
+            return receipt
+        with patch.object(self.desk.target, 'apply', side_effect=cancel_after_commit):
+            self.desk.apply(job)
+        self.assertEqual('effect_verified_after_cancel', self.desk.get(job)['result']['kind'])
+        src, dest = self.make_snapshot()
+        artifact = next((src/'target').rglob('*.txt'))
+        artifact.write_bytes(b'changed after cancellation')
+        manifest = json.loads((src/'snapshot.json').read_text())
+        manifest['files'][artifact.relative_to(src).as_posix()] = checksum(artifact)
+        (src/'snapshot.json').write_text(canonical(manifest))
+        with self.assertRaises(Rejected):
             restore(src, dest)
         self.assertFalse(dest.exists())

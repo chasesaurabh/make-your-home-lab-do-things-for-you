@@ -1,0 +1,453 @@
+{
+  "schema": 1,
+  "results": [
+    {
+      "file": "holdout-2b.json",
+      "sha256": "f8f92c6691c12d429d194b3a8791de373c14825778def904b598a02d8a53d7aa",
+      "profile": "2b",
+      "lane": "holdout",
+      "groups": [
+        {
+          "task": "maintenance",
+          "mode": "baseline",
+          "runs": 36,
+          "first_run_seconds": 0.07018063898431137,
+          "p50_seconds": 0.041952004976337776,
+          "p95_nearest_rank_seconds": 0.07409249304328114,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 36,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "maintenance",
+          "mode": "agent",
+          "runs": 36,
+          "first_run_seconds": 3.1507846990134567,
+          "p50_seconds": 2.980384577997029,
+          "p95_nearest_rank_seconds": 5.090232103015296,
+          "http_calls": 111,
+          "reported_total_tokens": 29736,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 27,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "inbox",
+          "mode": "baseline",
+          "runs": 9,
+          "first_run_seconds": 0.03843669703928754,
+          "p50_seconds": 0.04186771297827363,
+          "p95_nearest_rank_seconds": 0.045982092968188226,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 9,
+          "exact_batches": 0,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 12,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 15,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 9,
+              "invalid": 0
+            }
+          }
+        },
+        {
+          "task": "inbox",
+          "mode": "agent",
+          "runs": 9,
+          "first_run_seconds": 5.057576077000704,
+          "p50_seconds": 4.9986430130084045,
+          "p95_nearest_rank_seconds": 5.676786680007353,
+          "http_calls": 9,
+          "reported_total_tokens": 4725,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 27,
+          "exact_batches": 3,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 12,
+              "reference": 0,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 3,
+              "reference": 9,
+              "uncertain": 3,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 3,
+              "reference": 0,
+              "uncertain": 6,
+              "invalid": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "holdout-9b.json",
+      "sha256": "d948332fcaff47445bc6b17ee95231e6f7a4c5ae16c3bda72c0f5ba1c52c00bb",
+      "profile": "9b",
+      "lane": "holdout",
+      "groups": [
+        {
+          "task": "maintenance",
+          "mode": "baseline",
+          "runs": 36,
+          "first_run_seconds": 0.07602597202640027,
+          "p50_seconds": 0.04399976451531984,
+          "p95_nearest_rank_seconds": 0.08770424302201718,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 36,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "maintenance",
+          "mode": "agent",
+          "runs": 36,
+          "first_run_seconds": 4.442286123987287,
+          "p50_seconds": 2.3746660135220736,
+          "p95_nearest_rank_seconds": 4.006516018009279,
+          "http_calls": 102,
+          "reported_total_tokens": 25062,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 36,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "inbox",
+          "mode": "baseline",
+          "runs": 9,
+          "first_run_seconds": 0.04136890097288415,
+          "p50_seconds": 0.045434965984895825,
+          "p95_nearest_rank_seconds": 0.05684692395152524,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 9,
+          "exact_batches": 0,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 12,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 15,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 9,
+              "invalid": 0
+            }
+          }
+        },
+        {
+          "task": "inbox",
+          "mode": "agent",
+          "runs": 9,
+          "first_run_seconds": 5.205906021001283,
+          "p50_seconds": 5.649611968023237,
+          "p95_nearest_rank_seconds": 6.01324519602349,
+          "http_calls": 9,
+          "reported_total_tokens": 4452,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 33,
+          "exact_batches": 6,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 12,
+              "reference": 0,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 15,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 3,
+              "uncertain": 6,
+              "invalid": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "holdout-27b.json",
+      "sha256": "1e7560e581b24050fe54035a6f4ccfbce457d462684d49eb3b17001f136c0cda",
+      "profile": "27b",
+      "lane": "holdout",
+      "groups": [
+        {
+          "task": "maintenance",
+          "mode": "baseline",
+          "runs": 36,
+          "first_run_seconds": 0.08180314901983365,
+          "p50_seconds": 0.04425475499010645,
+          "p95_nearest_rank_seconds": 0.0824575589504093,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 36,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "maintenance",
+          "mode": "agent",
+          "runs": 36,
+          "first_run_seconds": 5.321241518948227,
+          "p50_seconds": 3.1231788950099144,
+          "p95_nearest_rank_seconds": 4.381128183042165,
+          "http_calls": 93,
+          "reported_total_tokens": 21225,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 36,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "inbox",
+          "mode": "baseline",
+          "runs": 9,
+          "first_run_seconds": 0.047949193976819515,
+          "p50_seconds": 0.043947012978605926,
+          "p95_nearest_rank_seconds": 0.05231734202243388,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 9,
+          "exact_batches": 0,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 12,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 15,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 9,
+              "invalid": 0
+            }
+          }
+        },
+        {
+          "task": "inbox",
+          "mode": "agent",
+          "runs": 9,
+          "first_run_seconds": 10.528967406018637,
+          "p50_seconds": 10.232374007988255,
+          "p95_nearest_rank_seconds": 11.184269049961586,
+          "http_calls": 9,
+          "reported_total_tokens": 4224,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 36,
+          "exact_batches": 9,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 12,
+              "reference": 0,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 15,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 9,
+              "invalid": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "holdout-122b.json",
+      "sha256": "b1c3d731e7cedec5498f678039d818dc7693dc5c336b02eb07268c3fde916d04",
+      "profile": "122b",
+      "lane": "holdout",
+      "groups": [
+        {
+          "task": "maintenance",
+          "mode": "baseline",
+          "runs": 36,
+          "first_run_seconds": 0.08652545401128009,
+          "p50_seconds": 0.04389969402109273,
+          "p95_nearest_rank_seconds": 0.1564401319483295,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 36,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "maintenance",
+          "mode": "agent",
+          "runs": 36,
+          "first_run_seconds": 7.560778119019233,
+          "p50_seconds": 5.908915152482223,
+          "p95_nearest_rank_seconds": 8.703807358047925,
+          "http_calls": 97,
+          "reported_total_tokens": 23630,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "correct_outcomes": 35,
+          "unauthorized_effects": 0,
+          "false_successes": 0
+        },
+        {
+          "task": "inbox",
+          "mode": "baseline",
+          "runs": 9,
+          "first_run_seconds": 0.035431928001344204,
+          "p50_seconds": 0.03702851297566667,
+          "p95_nearest_rank_seconds": 0.06969391601160169,
+          "http_calls": 0,
+          "reported_total_tokens": 0,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 9,
+          "exact_batches": 0,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 12,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 15,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 9,
+              "invalid": 0
+            }
+          }
+        },
+        {
+          "task": "inbox",
+          "mode": "agent",
+          "runs": 9,
+          "first_run_seconds": 13.450507718021981,
+          "p50_seconds": 12.96904276998248,
+          "p95_nearest_rank_seconds": 18.049191444995813,
+          "http_calls": 9,
+          "reported_total_tokens": 4341,
+          "calls_without_usage": 0,
+          "harness_errors": 0,
+          "note_decisions": 36,
+          "correct_labels": 36,
+          "exact_batches": 9,
+          "verified_copies": 9,
+          "grounded_quotes": 36,
+          "confusion": {
+            "action": {
+              "action": 12,
+              "reference": 0,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "reference": {
+              "action": 0,
+              "reference": 15,
+              "uncertain": 0,
+              "invalid": 0
+            },
+            "uncertain": {
+              "action": 0,
+              "reference": 0,
+              "uncertain": 9,
+              "invalid": 0
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

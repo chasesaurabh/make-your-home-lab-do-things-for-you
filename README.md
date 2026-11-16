@@ -1,125 +1,105 @@
 # Make Your Home Lab Do Things for You
-## Build Local AI Agents That Get Things Done — companion code
 
-**Maintenance Desk is a synthetic execution lab.** It persists jobs, reads bounded diagnostics/runbooks/incidents, proposes one disposable setting change, waits for operator approval, applies it and verifies actual output bytes. Jobs and the target use separate databases to expose uncertain external effects.
+Companion code for **Build Local AI Agents That Get Things Done**, by Saurabh Chase.
 
-MIT licensed. [Read the book on Kindle](https://www.amazon.com/dp/B0HP7C83W8). The immutable companion edition is `book-v1.0.0`; resolve its full commit with `git rev-parse book-v1.0.0^{commit}`. Application package version remains 0.1.0. The earlier `v0.1.0` development tag is retained unchanged.
+Three local projects take a task from input to an outcome you can inspect:
 
-![Maintenance Desk showing a synthetic job waiting for operator approval](docs/images/m3-preview.jpg)
+- **Maintenance Desk:** durable synthetic jobs, model-selected observations, exact operator approval, a separate target receipt and crash recovery.
+- **Inbox organizer:** classify small text notes, review categories and exact quotations, then create verified copies while preserving originals.
+- **Service watcher:** check configured loopback HTTP endpoints and write timestamped reports for passing, mismatched and unavailable observations.
 
-Actual read-only board from a deterministic synthetic run on October 26, 2026, using Windows and CPython 3.12.14. No model or real service was used; the pictured job was not approved or applied. See [tested environments](VERSION_MATRIX.md) for the wider recorded scope.
+The code is MIT-licensed. Book text, covers, model weights and private production records are separate.
 
-## Requirements and first run
+## Download the version used by the book
 
-Use Python 3.12 and Git. The source workflow has no third-party runtime packages. No GPU, model, account, credentials, or real home-lab services are needed for deterministic work. Keep data directories disposable.
+Use the [book-v2.0.0 release](https://github.com/chasesaurabh/make-your-home-lab-do-things-for-you/releases/tag/book-v2.0.0). Download the named source ZIP and `SHA256SUMS.txt` for the complete labs, tests and research. Check the archive hash before extracting it. The wheel contains the application package; use the source archive for examples and research.
+
+Application version: **0.2.0**. First-edition readers retain the unchanged `book-v1.0.0` tag and its printed commit reference. The default branch can evolve; use a named release when following the book.
+
+## First run without a model
+
+Use Python **3.12**. From the extracted source directory:
 
 ```powershell
-git clone --branch book-v1.0.0 https://github.com/chasesaurabh/make-your-home-lab-do-things-for-you.git
-cd make-your-home-lab-do-things-for-you
 python --version
-python -m unittest discover -s tests -v
-python -m maintenance_desk rehearsal
+python -m venv .venv
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m maintenance_desk rehearsal
+.\.venv\Scripts\python.exe examples/inbox_rehearsal.py
 ```
 
-The rehearsal uses a fresh temporary sandbox, displays its synthetic proposal, issues a demonstration-only operator grant, applies the change, reopens the application, checks its receipt and duplicate call, and removes temporary data. Normal jobs always wait for an operator. `python -m maintenance_desk demo` retains the smaller one-database teaching experiment.
-
-## Persistent job walkthrough
+The application has no third-party runtime dependencies. On Linux, the virtual environment executable is `.venv/bin/python`. The pinned Dockerfile provides a second test lane:
 
 ```powershell
-python -m maintenance_desk --data data/lab submit event-001
-python -m maintenance_desk --data data/lab list
+docker build -t maintenance-desk:book-v2 .
+docker run --rm --network none maintenance-desk:book-v2
 ```
 
-Replace JOB_ID below with the returned ID. No command placeholder is a secret.
+Both rehearsals grant only operations on their own temporary synthetic fixtures. Ordinary jobs require a separate review and approval. No GPU, account, credentials or private data are needed for these first exercises. A Windows symlink-creation test may skip when the OS account lacks that privilege; the Linux container exercises that boundary.
+
+To install the application for use outside the checkout:
 
 ```powershell
-python -m maintenance_desk --data data/lab inspect JOB_ID
-python -m maintenance_desk --data data/lab show JOB_ID
-python -m maintenance_desk --data data/lab board --output data/board.html
+.\.venv\Scripts\python.exe -m pip install .
 ```
 
-Review target/version, policy, expiry, evidence digest and exact before/after batch_limit. Print the proposal fingerprint:
+This provides `maintenance-desk`, `inbox-desk` and `service-watch` console commands. Building from source may download the pinned setuptools build dependency; it does not download a model.
+
+## Complete a persistent maintenance job
+
+Use the same Python environment throughout. The following example abbreviates its interpreter as `python`:
 
 ```powershell
-python -c "from maintenance_desk.engine import Desk; from maintenance_desk.contracts import digest; d=Desk('data/lab'); print(digest(d.get('JOB_ID')['proposal'])); d.close()"
+$JobId = python -m maintenance_desk --data data/lab submit event-001 |
+  ConvertFrom-Json
+python -m maintenance_desk --data data/lab inspect $JobId
+python -m maintenance_desk --data data/lab show $JobId
 ```
 
-Replace PROPOSAL_DIGEST with that value. Approval expires five minutes after proposal creation or at the earlier job deadline.
+Review the target, before/after value, version, evidence and expiry. Obtain the proposal digest from the reviewed job:
 
 ```powershell
-python -m maintenance_desk --data data/lab approve JOB_ID --digest PROPOSAL_DIGEST --actor operator
-python -m maintenance_desk --data data/lab apply JOB_ID
-python -m maintenance_desk --data data/lab show JOB_ID
+$Job = python -m maintenance_desk --data data/lab review $JobId |
+  ConvertFrom-Json
 ```
 
-Success requires a persisted target receipt plus independent manifest/output-byte checks. Reapplying a succeeded job returns its historical result; it does not repeat an effect or prove that nobody changed the target later. Failed or unresolved writes are never silently retried.
-
-Use cancel JOB_ID before an effect or revoke JOB_ID before apply. Cancellation after an effect requests reconciliation and preserves the truth that the effect occurred. Operator names are audit labels, not multiuser authentication. Anyone controlling the OS account and databases controls this lab.
-
-## Local-model triage
-
-Supply a working compatible endpoint and served model ID. The companion does not install, download, or restart model servers. It accepts loopback HTTP only, refuses proxies/redirects, and has no hosted fallback.
+Review the returned proposal and evidence before issuing these separate commands:
 
 ```powershell
-python -m maintenance_desk --data data/agent submit agent-001 --mode agent
-python -m maintenance_desk --data data/agent inspect JOB_ID --endpoint http://localhost:8100/v1 --model YOUR_SERVED_MODEL_ID
+python -m maintenance_desk --data data/lab approve $JobId `
+  --digest $Job.proposal_digest --actor operator
+python -m maintenance_desk --data data/lab apply $JobId
+python -m maintenance_desk --data data/lab show $JobId
 ```
 
-The model may select named observation tools, finish or escalate. Application code validates the evidence and constructs any bounded proposal. The model cannot grant approval or invoke apply. The loop has five decisions, bounded context/output, a 60-second inspection budget, finite network timeouts and at most one retry per selected transient read failure. Software budgets are not real-time scheduling guarantees.
+Never grant an operation merely because model text recommends it. The normal maintenance proposal expires after five minutes or at the earlier job deadline. For a fresh proposal, submit a new event key such as `event-002`, then inspect and review it. Reusing an old key returns the old job; it does not renew permission.
 
-Tests label scripted providers as stubs. Live-model evaluation is separate. Fixtures and prompts are synthetic; this is not prompt-only evaluation, real incident detection, or a study of household labor savings. Raw responses are retained for synthetic exercises; redesign logging before sensitive use.
-
-## Events, schedules, worker and board
+The board is read-only and loopback-only:
 
 ```powershell
-python -m maintenance_desk --data data/lab tick hourly --period 3600
-python -m maintenance_desk --data data/lab work --cycles 5 --interval 1
-python -m maintenance_desk --data data/lab work --cycles 10 --interval 10 --schedule hourly --period 3600
-python -m maintenance_desk --data data/lab recover
-python -m maintenance_desk --data data/lab serve --port 8791
+python -m maintenance_desk --data data/lab serve
 ```
 
-The worker inspects queued jobs and applies only previously approved ready jobs. It never issues grants. Agent-mode work needs explicit --endpoint and --model on the worker command. Periodic admission uses UTC epoch intervals and latest-bucket-only policy: duplicate ticks produce one job; missed intervals are not replayed. There is no local-wall-clock/DST cron parser. OS-scheduler installation is not bundled.
+Open `http://127.0.0.1:8791/`. Current state, exact evidence, verified changes and healthy checks are distinct. Cancellation after a possible effect preserves the need to reconcile. A succeeded maintenance call returns its historical receipt; it is not a fresh health check of the target.
 
-The board binds 127.0.0.1, serves only /, is read-only, and escapes displayed text. It has no account authentication or mutation endpoints. Keep it off the LAN and use synthetic data. The worker is a bounded teaching runner, not a distributed scheduler. Concurrent claim races may return "job unavailable"; catch that conflict at the caller.
+## Organize notes and collect service reports
 
-## Recovery and offline snapshots
+The [inbox contract](docs/inbox-contract.md) explains bounds and review semantics. Run `python -m maintenance_desk.inbox --help` for prepare, review, approve, apply, verify and reconcile commands. Input is one folder of up to twelve UTF-8 text files, eight KiB total. Output is a new job directory with controlled filenames, copies, an index and a receipt. A valid quote does not prove a category is right; operator review matters.
 
-Tests launch separate processes that exit immediately: 71 before target commit; 72 after target commit. These are internal test switches, not normal CLI actions. An expired write lease enters needs_reconciliation. A matching receipt permits independent verification. Missing receipts, partial artifacts or tampered output remain unresolved. Do not delete artifacts to force a retry; inspect timeline and target first.
+The [service-watch walkthrough](docs/service-watch.md) includes a disposable HTTP fixture and exact commands for success,503 failure and a stopped service. Use only explicitly configured read-only loopback endpoints. A passing configured status/marker check is not a claim that every service function is healthy.
 
-Stop all workers and board processes before snapshotting. These offline file copies do not guarantee consistency against concurrent writers. Restore to a new directory; pending grants are revoked.
+## Add a local model
 
-```powershell
-python -m maintenance_desk --data data/lab snapshot data/snapshot-001
-python -m maintenance_desk --data data/restored restore data/snapshot-001
-python -m maintenance_desk --data data/restored list
-```
+`examples/fetch_model.py` downloads and verifies the exact artifacts in `configs/model-artifacts.lock.json`. `examples/serve_model.py` starts the pinned vLLM image after verifying those files, checks the served model ID and sends an actual inference probe. See [local model setup](docs/model-setup.md).
 
-Use a new snapshot name. A checksum manifest rejects corrupted data. This recovers the synthetic app; it is not backup software for user files. After stopping processes, remove only your chosen disposable data directories. No system service is installed.
+Available profiles are2B,9B,27B and122B NVFP4. Disk size is not minimum VRAM. Runtime allocations, cache settings and quantization matter; the larger profiles need substantially more capacity. The runtime image uses NVIDIA GPU access in Docker Linux containers. Weights retain their own licenses and are never included in a code release.
 
-## Tests and comparisons
+The application accepts an explicit loopback endpoint, bypasses proxies and refuses redirects. There is no hosted fallback. Maintenance inference selects bounded observations; inbox inference proposes categories and grounded quotes. Neither can grant approval, choose arbitrary write paths or issue shell commands.
 
-```powershell
-docker build -t home-lab-do-things:dev .
-docker run --rm --network none home-lab-do-things:dev
-python -m maintenance_desk.evaluate --lane development --endpoint http://localhost:8100/v1 --model YOUR_SERVED_MODEL_ID --output data/development-run-001.json
-python -m maintenance_desk.evaluate --lane holdout --endpoint http://localhost:8100/v1 --model YOUR_SERVED_MODEL_ID --output data/holdout-run-001.json
-```
+## Research and limits
 
-The Docker base is pinned by digest. Each lane compares deterministic and agent triage on twelve fixed cases in fresh temporary sandboxes. It records dispositions, wrong-success/unauthorized-effect counts, token telemetry, latency, traces and failures. Existing evidence files are never overwritten. The evaluator's automatic grants apply only to its temporary synthetic targets. Holdout fixtures are additional narrow variants, not evidence of generalization to real systems. Freeze prompts/rubric before first holdout and preserve failures.
+Read [observed evidence](EVIDENCE.md), [tested versions](VERSION_MATRIX.md) and the frozen [study plan](research/study-plan.json). The study separates deterministic checks from actual model inference. It retains failed results and measures semantic decisions separately from verified effects. Repeated synthetic fixtures do not establish general incident-detection accuracy or household time savings.
 
-## Chapter map
+This is a one-operator local system. Operator labels are not authentication. Keep sources, databases and outputs in directories you control. The service watcher is read-only; the organizer makes copies; the maintenance target changes only its disposable synthetic fixture. Offline snapshots require stopped workers and revoke old grants on restore. No production restart, arbitrary shell/SSH execution, credential management or backup of personal files is implemented.
 
-| Chapters | Sources |
-|---|---|
-| 1–4: completion, baseline, persistence | contracts.py, store.py (F0), engine.py |
-| 5–8: model, tools, evidence, loop | provider.py, contracts.py |
-| 9–12: approval, action, verification | engine.py, target.py, cli.py |
-| 13–16: events, leases, recovery | engine.py, snapshot.py, process-crash tests |
-| 17–20: timeline, comparison, rehearsal | cli.py, evaluate.py, rehearsal.py |
-
-No shell, SSH, host administration, production restarts, actual backups, user-file transformation, credential management, MCP transport, voice/vision or multiple-agent implementation is included. See [security](SECURITY.md), [contributing](CONTRIBUTING.md), [versions](VERSION_MATRIX.md), [manifest](release-manifest.json), and [MIT license](LICENSE). Manuscript, art, production assets, weights, private logs and personal data stay outside this repository.
-
-## Choose your next project
-
-[Start here: choose a Practical AI Home Lab book](https://github.com/chasesaurabh/give-your-home-labs-ai-a-memory/blob/codex/memory-companion/docs/start-here.md), or [browse the series on Amazon](https://www.amazon.com/dp/B0HP7F73K4). Each book can be read on its own.
+See [security](SECURITY.md), [contributing](CONTRIBUTING.md), the [version manifest](release-manifest.json) and [MIT license](LICENSE).

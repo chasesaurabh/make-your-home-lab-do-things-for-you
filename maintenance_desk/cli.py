@@ -109,7 +109,7 @@ def main(argv=None):
     approval.add_argument("job")
     approval.add_argument("--digest", required=True)
     approval.add_argument("--actor", default="operator")
-    for name in ("show", "apply", "cancel", "revoke"):
+    for name in ("show", "review", "apply", "cancel", "revoke"):
         commands.add_parser(name).add_argument("job")
     tick = commands.add_parser("tick")
     tick.add_argument("schedule")
@@ -165,9 +165,12 @@ def main(argv=None):
         elif args.command in ("cancel", "revoke"):
             getattr(desk, args.command)(args.job)
             result = desk.get(args.job)
-        elif args.command == "show":
+        elif args.command in ("show", "review"):
             result = desk.get(args.job)
             result["timeline"] = desk.timeline(args.job)
+            if args.command == 'review':
+                result['proposal_digest'] = digest(result['proposal']) if result['proposal'] else None
+                result['review_note'] = 'Read the exact proposal, evidence and expiry. Reviewing does not grant permission.'
         elif args.command == "tick":
             result = desk.tick(args.schedule, period=args.period)
         elif args.command == "recover":

@@ -101,7 +101,8 @@ def restore(source, destination):
             for job in desk.jobs():
                 if job["state"] in ("inspecting", "applying", "verifying"):
                     raise Rejected("snapshot contains an active worker")
-                if job["state"] == "succeeded" and job["intent"]:
+                if job["intent"] and (job["state"] == "succeeded" or
+                        (job["result"] or {}).get("kind") == "effect_verified_after_cancel"):
                     desk.target.verify(job["intent"])
             # Restoration changes operating context. Never revive an old grant.
             with desk.transaction():

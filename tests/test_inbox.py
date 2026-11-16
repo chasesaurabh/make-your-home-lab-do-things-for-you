@@ -117,6 +117,15 @@ class InboxTests(unittest.TestCase):
         with self.assertRaisesRegex(Rejected, 'inventory'):
             self.inbox.verify(job['id'])
 
+    def test_oversized_copy_is_rejected_with_a_bounded_read(self):
+        job = self.ready()
+        self.inbox.apply(job['id'])
+        path = Path(job['proposal']['destination'])/'uncertain-n01.txt'
+        with path.open('ab') as stream:
+            stream.write(b'x'*1000000)
+        with self.assertRaisesRegex(Rejected, 'output bytes'):
+            self.inbox.verify(job['id'])
+
     def test_second_connection_cannot_reapply_uncertain_operation(self):
         job = self.ready()
         with self.assertRaises(RuntimeError):

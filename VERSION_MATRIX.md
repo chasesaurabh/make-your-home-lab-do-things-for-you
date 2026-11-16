@@ -1,16 +1,19 @@
-# Tested versions and limits — book-v1.0.0 / application 0.1.0
+# Tested versions — book-v2.0.0 / application0.2.0
 
-| Component | Observed/tested configuration | Scope |
+| Component | Recorded configuration | Scope |
 |---|---|---|
-| Windows | Windows 11 Pro 10.0.26300, PowerShell 7.6.5 | Native deterministic/recovery tests and synthetic live evaluation |
-| Native Python | CPython 3.12.14; SQLite 3.53.1 | 51 tests, complete temporary rehearsal, separate clean-venv package installation |
-| Linux container | Python 3.12.15 slim Bookworm, pinned amd64 manifest in Dockerfile | Network-disabled deterministic suite; final output recorded in book production evidence |
-| Runtime dependencies | Python standard library only | No third-party runtime packages |
-| Optional package builder | setuptools 84.2.1 pinned in pyproject.toml | PyPI reported zero advisories on October 23, 2026; this is a dated check |
-| Local model | Existing vLLM 0.30.0 service, requested nemotron-super-120b-fp4 | Supplied-evidence fixtures only; see model-manifest.json and EVIDENCE.md |
-| macOS | Not tested | No native macOS support claim |
-| Python outside 3.12 | Not tested | Packaging intentionally requires >=3.12,<3.13 |
+| Native Python | CPython3.12.14 | Windows CLI, deterministic and file/report exercises |
+| Container | CPython3.12.15; SQLite3.40.1 | Network-disabled tests; study harness |
+| Application | home-lab-maintenance-desk0.2.0 | Maintenance, inbox and service-watch entry points |
+| Runtime dependencies | Standard library | No third-party application packages |
+| Build dependency | setuptools84.2.1 | Pinned source builder |
+| Model server | vLLM0.30.0; pinned image digest | Actual structured inference on four profiles |
+| GPU | RTX PRO6000 Blackwell97,887MiB;driver582.16 | Sequential study, not minimum requirements |
 
-The production model's returned alias differs from its configured root. The model manifest records them separately and identifies the cached snapshot and metadata checksums; weights are not redistributed. A different runtime, model/template, fixture or prompt requires new measurements. There is no guarantee of equivalent results on a different endpoint.
+The supported Python range is>=3.12,<3.13. Source and Linux tests exercise actual local HTTP fixtures and child-process recovery. Native Windows may skip symbolic-link creation when the OS denies that privilege; Linux executes it. Exact final release test counts and acquisition checks are recorded with the release.
 
-Snapshots are offline-only and revoke pending grants on restore. Periods are UTC epoch intervals with latest-bucket-only admission, not calendar/DST scheduling. Local labels are not authentication. The app is a synthetic one-host teaching system, not a production or distributed scheduler.
+The model files/revisions/hashes are in `configs/model-artifacts.lock.json`. Startup uses context4096,one sequence,eager mode and explicit loopback binding. Study requests disable thinking and use temperature0. The122B profile uses NVFP4 weights/FP8 KV cache; the smaller profiles use unquantized weights/automatic KV dtype. Model file sizes do not imply minimum VRAM.
+
+The application is a one-operator local tool. Actor names are labels, not authentication. Inbox output is copy-only with separately reviewed exact grants. Service reports observe configured read-only GET endpoints and perform no repair. Maintenance effects remain synthetic. Offline snapshot/restore covers the maintenance data root and revokes old grants; it is not a backup service for arbitrary personal files.
+
+Final candidate verification: 101 tests pass in network-disabled Linux. Native Windows runs 101 tests with one explicit OS symlink-privilege skip; the Linux lane exercises that case. These include seven study-integrity tests, a bounded-copy check and cancelled-effect restore validation.
