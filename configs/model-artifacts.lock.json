@@ -1,0 +1,466 @@
+{
+  "schema": 1,
+  "runtime_image": "vllm/vllm-openai@sha256:8a69ffad015f138d7170c4ddc429e230a3bc1c1719f67e14324749df200a4b90",
+  "profiles": {
+    "2b": {
+      "repository": "Qwen/Qwen3.5-2B",
+      "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "license": "Apache-2.0",
+      "model_card": "https://huggingface.co/Qwen/Qwen3.5-2B/blob/15852e8c16360a2fea060d615a32b45270f8a8fc/README.md",
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 11544,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "f938136e3adacfd92be087f6e113b5d6d97f678f"
+        },
+        {
+          "path": "README.md",
+          "bytes": 62814,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "2efa49d346c547ea81cd3d1310f414df25934f45"
+        },
+        {
+          "path": "chat_template.jinja",
+          "bytes": 7755,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "0ef09f214eaa6d9bca297988afc1454b5827b2c7"
+        },
+        {
+          "path": "config.json",
+          "bytes": 2908,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "d30a15be1bbfd610f58ad80f1fbeb6778f58a80f"
+        },
+        {
+          "path": "merges.txt",
+          "bytes": 3353259,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a494e019ca1502219fd0128658b979e5f05ae8e8"
+        },
+        {
+          "path": "model.safetensors-00001-of-00001.safetensors",
+          "bytes": 4548221488,
+          "hash_algorithm": "sha256",
+          "hash": "aa33250c4fc64891ddfaba3a314fd9542ea371843c387178b425fbcc5ed680b1"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "bytes": 64460,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "69a41758e1138259916d08b99b56fada441fd502"
+        },
+        {
+          "path": "preprocessor_config.json",
+          "bytes": 390,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 12807982,
+          "hash_algorithm": "sha256",
+          "hash": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 16709,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "fae3ce993e07c092ad024dde45e592379fde91bb"
+        },
+        {
+          "path": "video_preprocessor_config.json",
+          "bytes": 385,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe"
+        },
+        {
+          "path": "vocab.json",
+          "bytes": 6722759,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176"
+        }
+      ],
+      "quantization": null,
+      "kv_cache_dtype": "auto"
+    },
+    "9b": {
+      "repository": "Qwen/Qwen3.5-9B",
+      "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+      "license": "Apache-2.0",
+      "model_card": "https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/README.md",
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 11544,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "f938136e3adacfd92be087f6e113b5d6d97f678f"
+        },
+        {
+          "path": "README.md",
+          "bytes": 77643,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "0f3972cb2c995a86bde9ac92440da530fe2b2c68"
+        },
+        {
+          "path": "chat_template.jinja",
+          "bytes": 7756,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a585dec894e63da457d9440ec6aa7caa16d20860"
+        },
+        {
+          "path": "config.json",
+          "bytes": 3126,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "273ce437e01baf96a07cd9eb3d5f48bac8d7c657"
+        },
+        {
+          "path": "merges.txt",
+          "bytes": 3353259,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a494e019ca1502219fd0128658b979e5f05ae8e8"
+        },
+        {
+          "path": "model.safetensors-00001-of-00004.safetensors",
+          "bytes": 5276436216,
+          "hash_algorithm": "sha256",
+          "hash": "db6f444b43d318c92f360a13a25561a6a65b10c0631b8ed305a426dbaa6c380e"
+        },
+        {
+          "path": "model.safetensors-00002-of-00004.safetensors",
+          "bytes": 5335161512,
+          "hash_algorithm": "sha256",
+          "hash": "31c7d7e2dd5d207840b31cc59083c8f4c4718959149e0358c0364052bb9a0330"
+        },
+        {
+          "path": "model.safetensors-00003-of-00004.safetensors",
+          "bytes": 5368717440,
+          "hash_algorithm": "sha256",
+          "hash": "7ec36ba3a4176a44c3c0876ad80c56a2f70c84bf008d82e9501df642f17dadec"
+        },
+        {
+          "path": "model.safetensors-00004-of-00004.safetensors",
+          "bytes": 3325995712,
+          "hash_algorithm": "sha256",
+          "hash": "b62b0c4cd7e44edee103ee8f4fe225f246d5e768e07bfd5f25b63a8aa1fdd0c6"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "bytes": 79657,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "e4c1cb7dba5096b43b9d92bc781aba5e3aa8acd8"
+        },
+        {
+          "path": "preprocessor_config.json",
+          "bytes": 390,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 12807982,
+          "hash_algorithm": "sha256",
+          "hash": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 16710,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "eda48d3e75a8e59a8479ee4ec8b37f76e711d9c1"
+        },
+        {
+          "path": "video_preprocessor_config.json",
+          "bytes": 385,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe"
+        },
+        {
+          "path": "vocab.json",
+          "bytes": 6722759,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176"
+        }
+      ],
+      "quantization": null,
+      "kv_cache_dtype": "auto"
+    },
+    "27b": {
+      "repository": "Qwen/Qwen3.5-27B",
+      "revision": "fc05daec18b0a78c049392ed2e771dde82bdf654",
+      "license": "Apache-2.0",
+      "model_card": "https://huggingface.co/Qwen/Qwen3.5-27B/blob/fc05daec18b0a78c049392ed2e771dde82bdf654/README.md",
+      "files": [
+        {
+          "path": "LICENSE",
+          "bytes": 11343,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "1d5180a42f1c3383ba7c7bd0a50f0837ef0168df"
+        },
+        {
+          "path": "README.md",
+          "bytes": 92417,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a2a72d09e2fbca37dcf9438add912fccabe048e8"
+        },
+        {
+          "path": "chat_template.jinja",
+          "bytes": 7756,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a585dec894e63da457d9440ec6aa7caa16d20860"
+        },
+        {
+          "path": "config.json",
+          "bytes": 4134,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "bde2be7f34a16fcdf78b9050319cdb330a15fecd"
+        },
+        {
+          "path": "generation_config.json",
+          "bytes": 244,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "85b45ab4f3a24f95a061c5260559471a259187cc"
+        },
+        {
+          "path": "merges.txt",
+          "bytes": 3353259,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a494e019ca1502219fd0128658b979e5f05ae8e8"
+        },
+        {
+          "path": "model.safetensors-00001-of-00011.safetensors",
+          "bytes": 5263851872,
+          "hash_algorithm": "sha256",
+          "hash": "9019228d172c87d5603266c2d56672d119e838facffa164de803a1ebf0d716d2"
+        },
+        {
+          "path": "model.safetensors-00002-of-00011.safetensors",
+          "bytes": 5347741440,
+          "hash_algorithm": "sha256",
+          "hash": "890ef00c920b01c1c02755088c8d8ca5cdd6a1faa2a9a729eecd00857648b411"
+        },
+        {
+          "path": "model.safetensors-00003-of-00011.safetensors",
+          "bytes": 5347741504,
+          "hash_algorithm": "sha256",
+          "hash": "8aca03689ad0717fb91455809a6670eecca818bea8c0b6bd3a591a8807cc3223"
+        },
+        {
+          "path": "model.safetensors-00004-of-00011.safetensors",
+          "bytes": 5347741504,
+          "hash_algorithm": "sha256",
+          "hash": "20f539430c60fa611b3522b8408749a080b63f1fe034e551a6539ef864ca079a"
+        },
+        {
+          "path": "model.safetensors-00005-of-00011.safetensors",
+          "bytes": 5347741504,
+          "hash_algorithm": "sha256",
+          "hash": "57a0c074c654f05fc2d6b5112eeec387ac04986e928e42f502993e69aa03a49d"
+        },
+        {
+          "path": "model.safetensors-00006-of-00011.safetensors",
+          "bytes": 5347741504,
+          "hash_algorithm": "sha256",
+          "hash": "cfa4e6fbfc600854ef6c8e5465d0a1e43832a64b5e539f1e880333e3b1086703"
+        },
+        {
+          "path": "model.safetensors-00007-of-00011.safetensors",
+          "bytes": 5347741496,
+          "hash_algorithm": "sha256",
+          "hash": "d426963325b2319cb9e1442bc8b89b9a7748a8f7a907aa4041c11531cda6b014"
+        },
+        {
+          "path": "model.safetensors-00008-of-00011.safetensors",
+          "bytes": 5368714128,
+          "hash_algorithm": "sha256",
+          "hash": "fe60dbb9d25354c4eb2a9a59d9b1afd07741c8bebab5870f5eea6eadb4cf9a06"
+        },
+        {
+          "path": "model.safetensors-00009-of-00011.safetensors",
+          "bytes": 5347745520,
+          "hash_algorithm": "sha256",
+          "hash": "71a153d882242734a1fc7e000734727f00f6ec8ca70b044f5e44fcf97736ef8f"
+        },
+        {
+          "path": "model.safetensors-00010-of-00011.safetensors",
+          "bytes": 5347749200,
+          "hash_algorithm": "sha256",
+          "hash": "146745698b9f21940e2982beb1816a0eef3b80d77ab9cd884695b9a08c2697eb"
+        },
+        {
+          "path": "model.safetensors-00011-of-00011.safetensors",
+          "bytes": 2148512760,
+          "hash_algorithm": "sha256",
+          "hash": "d947ce7483c4109b55039f1359f4494d22390cf123568100abd89816802f097d"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "bytes": 126601,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a7726bc7355fa586dd0c55f3b4adc410461e9318"
+        },
+        {
+          "path": "preprocessor_config.json",
+          "bytes": 390,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 12807982,
+          "hash_algorithm": "sha256",
+          "hash": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 16710,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "eda48d3e75a8e59a8479ee4ec8b37f76e711d9c1"
+        },
+        {
+          "path": "video_preprocessor_config.json",
+          "bytes": 385,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe"
+        },
+        {
+          "path": "vocab.json",
+          "bytes": 6722759,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176"
+        }
+      ],
+      "quantization": null,
+      "kv_cache_dtype": "auto"
+    },
+    "122b": {
+      "repository": "nvidia/Qwen3.5-122B-A10B-NVFP4",
+      "revision": "98915d837c4e7c87ac8296d02e89de19b3207e6d",
+      "license": "Apache-2.0",
+      "model_card": "https://huggingface.co/nvidia/Qwen3.5-122B-A10B-NVFP4/blob/98915d837c4e7c87ac8296d02e89de19b3207e6d/README.md",
+      "files": [
+        {
+          "path": "README.md",
+          "bytes": 8151,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "ca85442e6dc95060949e6d51e27211e7dabfe1e4"
+        },
+        {
+          "path": "chat_template.jinja",
+          "bytes": 7756,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "a585dec894e63da457d9440ec6aa7caa16d20860"
+        },
+        {
+          "path": "config.json",
+          "bytes": 14274,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "fad015ce35d54feb50039ac0d190c1888f54b3fa"
+        },
+        {
+          "path": "generation_config.json",
+          "bytes": 244,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "85b45ab4f3a24f95a061c5260559471a259187cc"
+        },
+        {
+          "path": "hf_quant_config.json",
+          "bytes": 9583,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "8a8205e17fdfe09cc658544613bda6eb9db7c427"
+        },
+        {
+          "path": "model-00001-of-00009.safetensors",
+          "bytes": 10000615592,
+          "hash_algorithm": "sha256",
+          "hash": "1250c8e43ec02e981fe3945317923d03e294543710e50018b9de6dc3e5ca5a98"
+        },
+        {
+          "path": "model-00002-of-00009.safetensors",
+          "bytes": 10002004216,
+          "hash_algorithm": "sha256",
+          "hash": "e82c2c017adeb6f7fd7ccb8514c9d502e994f2a1a3276a33cbbd5fa7550195de"
+        },
+        {
+          "path": "model-00003-of-00009.safetensors",
+          "bytes": 10001267992,
+          "hash_algorithm": "sha256",
+          "hash": "9739b910c9cd1995bbb25ac8ee75d14cda47bb5c9caca72290e4625df451cb85"
+        },
+        {
+          "path": "model-00004-of-00009.safetensors",
+          "bytes": 10002020448,
+          "hash_algorithm": "sha256",
+          "hash": "1c971546e7b89b0ecaef7397eda0efcd42814ceb749efec0d6617e0bee48819c"
+        },
+        {
+          "path": "model-00005-of-00009.safetensors",
+          "bytes": 10001267592,
+          "hash_algorithm": "sha256",
+          "hash": "abbf91a68fc49cc7011801cadc590d0748f3ad4f3eb1a1fe7e0517e683d96a6d"
+        },
+        {
+          "path": "model-00006-of-00009.safetensors",
+          "bytes": 9974109760,
+          "hash_algorithm": "sha256",
+          "hash": "f3b73a17118bf693b700904cf4f71f3feb889084731fb71bd62f75cd8871d089"
+        },
+        {
+          "path": "model-00007-of-00009.safetensors",
+          "bytes": 10002339192,
+          "hash_algorithm": "sha256",
+          "hash": "1080813452cbde25f1f44cda024fed273f2c98706917598624d611041da71fea"
+        },
+        {
+          "path": "model-00008-of-00009.safetensors",
+          "bytes": 9999073984,
+          "hash_algorithm": "sha256",
+          "hash": "b1b5056e7c0fd993a114a471037a0fb0e59a7d7c3d0115f076270e5b53d3b88b"
+        },
+        {
+          "path": "model-00009-of-00009.safetensors",
+          "bytes": 3512306232,
+          "hash_algorithm": "sha256",
+          "hash": "ea8a02e3dbb998dd9010bf9a2871925363da998d05b8197b2a5d949832d6c9b0"
+        },
+        {
+          "path": "model.safetensors.index.json",
+          "bytes": 16456165,
+          "hash_algorithm": "sha256",
+          "hash": "b0f1f40086d4c60f765c4c0f19a05bed95b39e072be8f18a68c55dd69dccadb7"
+        },
+        {
+          "path": "preprocessor_config.json",
+          "bytes": 390,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64"
+        },
+        {
+          "path": "tokenizer.json",
+          "bytes": 12807982,
+          "hash_algorithm": "sha256",
+          "hash": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "bytes": 16710,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "eda48d3e75a8e59a8479ee4ec8b37f76e711d9c1"
+        },
+        {
+          "path": "video_preprocessor_config.json",
+          "bytes": 385,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe"
+        },
+        {
+          "path": "vocab.json",
+          "bytes": 6722759,
+          "hash_algorithm": "git_blob_sha1",
+          "hash": "0aa0ce0658d60ac4a5d609f4eadb0e8e43514176"
+        }
+      ],
+      "quantization": "modelopt_fp4",
+      "kv_cache_dtype": "fp8"
+    }
+  }
+}

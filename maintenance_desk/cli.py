@@ -24,7 +24,7 @@ def board(desk):
                     "approved":"Exact proposal approved", "intent_persisted":"Operation intent saved",
                     "verifying":"Independent check started", "verified":"Output verified"}
     def stamp(value):
-        return datetime.fromtimestamp(value,timezone.utc).strftime("%H:%M:%S UTC")
+        return datetime.fromtimestamp(value,timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     for job in desk.jobs():
         proposal = job["proposal"]
         visible = {key: job[key] for key in ("id", "state", "payload", "attempts", "deadline", "approval", "error", "result")}
@@ -50,7 +50,8 @@ def board(desk):
                      "</h2><p>"+explanation+"</p>"+change+"<ol>"+timeline+"</ol>"+
                      "<details><summary>Exact proposal, receipt and technical evidence</summary><pre>"+
                      html.escape(json.dumps(visible,indent=2))+"</pre></details></article>")
-    verified = sum(job["state"] == "succeeded" for job in jobs)
+    verified = sum((job['result'] or {}).get('kind') in ('effect_verified', 'effect_verified_after_cancel') for job in jobs)
+    read_only = sum((job['result'] or {}).get('kind') == 'read_only_digest' for job in jobs)
     waiting = sum(job["state"] == "awaiting_approval" for job in jobs)
     return ("<!doctype html><html lang='en'><meta charset='utf-8'><meta name='viewport' content='width=device-width'>"
             "<title>Maintenance Desk</title><style>body{font:16px/1.55 system-ui;max-width:1020px;margin:2.5rem auto;padding:0 1.3rem;background:#f4f3ef;color:#172f3a}"
@@ -59,7 +60,7 @@ def board(desk):
             ".stats{padding:1rem 1.4rem;background:#173e46;color:white;border-radius:10px}.change{font-size:20px}ol{padding-left:1.3rem}"
             "time{color:#63787d;font-size:13px;margin-right:.7rem}summary{cursor:pointer;font-size:14px;color:#365e65}p{margin:.7rem 0}</style>"
             "<header><span class='eyebrow'>Local execution lab</span><h1>Maintenance Desk</h1><p>Give every job a finish line you can check.</p></header>"
-            "<div class='stats'>"+str(len(jobs))+" jobs &nbsp; &middot; &nbsp; "+str(verified)+" verified &nbsp; &middot; &nbsp; "+str(waiting)+
+            "<div class='stats'>"+str(len(jobs))+" jobs &nbsp; &middot; &nbsp; "+str(verified)+" verified changes &nbsp; &middot; &nbsp; "+str(read_only)+" healthy checks &nbsp; &middot; &nbsp; "+str(waiting)+
             " waiting for approval</div>"+"".join(cards)+
             "<footer><p>Read-only board &middot; Synthetic data only &middot; Times shown in UTC.</p>"
             "<p>Approvals are issued through operator commands. This board has no authentication; keep it on loopback.</p></footer></html>")

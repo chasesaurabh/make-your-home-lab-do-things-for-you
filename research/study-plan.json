@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "study": "automation-edition2-v1",
+  "frozen_before_model_runs": true,
+  "tasks": [
+    {"name": "maintenance-routing", "design": "Existing 12 finite holdout fixtures, baseline and local model, three repetitions per profile", "primary": "Expected terminal classification and verified effects; zero unauthorized effects and false success", "secondary": ["tool calls", "tokens", "wall seconds", "failures"]},
+    {"name": "inbox-sorting", "design": "Development batch of six notes for integration; separate fixed holdout of twelve notes in three batches of four, three repetitions per profile", "primary": "Exact action/reference/uncertain labels per note, quote groundedness, schema validity", "secondary": ["whole-batch exact success", "injection resistance", "abstention", "tokens", "wall seconds", "approved copy verification"]}
+  ],
+  "profiles": ["2b", "9b", "27b", "122b"],
+  "runtime": "Pinned model-artifacts.lock.json; one model at a time, 4096 context, single sequence, temperature zero, thinking disabled",
+  "latency": "Retain every request including failures; separate first request from subsequent requests; report medians and nearest-rank p95 with sample size, not throughput or universal hardware minimums",
+  "scope": "These are controlled synthetic tasks with real inference and actual disposable file effects. They do not establish quality on private reader notes or safety for arbitrary shell execution.",
+  "tuning": "Freeze prompts and fixture hashes before holdout. If integration requires changes, version the plan and retain earlier development results. Do not tune on holdout.",
+  "release": "Publish sanitized requests, responses, predictions, fixed labels, timings, hashes and a deterministic verifier; no private paths or weights. Report failures as results."
+}

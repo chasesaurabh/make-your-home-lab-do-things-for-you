@@ -4,14 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "home-lab-maintenance-desk"
-version = "0.1.0"
-description = "Dedicated synthetic durable-job companion for Make Your Home Lab Do Things for You"
+version = "0.2.0"
+description = "Durable local workflows, reviewed inbox copies and service reports"
 requires-python = ">=3.12,<3.13"
 license = "MIT"
 dependencies = []
 
 [project.scripts]
 maintenance-desk = "maintenance_desk.cli:main"
+inbox-desk = "maintenance_desk.inbox:main"
+service-watch = "maintenance_desk.service_watch:main"
 
 [tool.setuptools.packages.find]
 include = ["maintenance_desk*"]

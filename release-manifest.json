@@ -1,14 +1,12 @@
 {
   "book_title": "Make Your Home Lab Do Things for You",
   "book_subtitle": "Build Local AI Agents That Get Things Done",
-  "edition": "First edition companion; application 0.1.0",
-  "status": "edition-frozen; book publication remains separate",
-  "released_tag": "book-v1.0.0",
-  "commit_resolution": "Resolve the immutable Git tag with git rev-parse book-v1.0.0^{commit}; full hash is also recorded in the book release record. This file cannot embed its own commit hash.",
-  "book_url": null,
-  "book_backlink_commit": null,
+  "edition": "Second edition companion; application 0.2.0",
+  "release_tag": "book-v2.0.0",
+  "previous_edition_tag": "book-v1.0.0",
+  "python": ">=3.12,<3.13",
   "license": "MIT",
   "third_party_runtime_dependencies": [],
-  "fixture_provenance": "Original synthetic worker state created by tests and demo",
+  "fixture_provenance": "Original synthetic worker states, notes and local HTTP services created by tests and examples",
   "model_weights_bundled": false
 }

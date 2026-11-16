@@ -81,6 +81,7 @@ class Desk:
                 if previous["payload"] != canonical(payload):
                     raise Rejected("event key conflict")
                 return previous["id"]
+            self._expire_unstarted()
             active = self.db.execute("SELECT count(*) FROM jobs WHERE state NOT IN ('succeeded','failed','cancelled')").fetchone()[0]
             if active >= self.capacity:
                 raise Rejected("queue capacity reached; admission refused")
@@ -96,8 +97,34 @@ class Desk:
             raise Rejected("period must be integer seconds from 60 through 604800")
         # Explicit latest-bucket policy: no hidden catch-up flood; UTC epoch intervals.
         bucket = int(self.clock() // period)
-        return self.admit(f"{schedule[:40]}-{period}-{bucket}",
-                          {"source": "schedule", "case": case, "mode": mode})
+        payload = {"source": "schedule", "case": case, "mode": mode}
+        event_payload(payload)
+        # Preserve short-name admission identity when opening first-edition data.
+        # A long legacy name was not retained, so its ownership is ambiguous.
+        legacy = self.db.execute("SELECT id,payload FROM jobs WHERE event_key=?", (f"{schedule[:40]}-{period}-{bucket}",)).fetchone()
+        if legacy:
+            if len(schedule) > 40:
+                raise Rejected("ambiguous legacy long schedule key; review it before admitting this interval")
+            if legacy["payload"] != canonical(payload):
+                raise Rejected("event key conflict")
+            return legacy["id"]
+        # Bind the entire name, including characters after the former 40-char cut.
+        key = digest({"schedule": schedule, "period": period, "bucket": bucket})
+        return self.admit(f"schedule-{key}", payload)
+
+    def _expire_unstarted(self):
+        """Called inside a transaction; never dispose of an uncertain effect."""
+        expired = []
+        for row in self.db.execute("SELECT id FROM jobs WHERE state IN ('queued','awaiting_approval','ready') AND intent IS NULL").fetchall():
+            current = self.get(row[0])
+            cutoff = current["deadline"]
+            if current["proposal"]:
+                cutoff = min(cutoff, current["proposal"]["expires"])
+            if self.clock() >= cutoff:
+                self.db.execute("UPDATE jobs SET state='failed',error='unstarted job or proposal expired',approval=NULL,owner=NULL,lease_until=NULL WHERE id=?", (current["id"],))
+                self.log(current["id"], "expired_before_effect", {"cutoff": cutoff})
+                expired.append(current["id"])
+        return expired
 
     def _claim(self, job, expected, next_state):
         owner = uuid.uuid4().hex
@@ -264,7 +291,9 @@ class Desk:
 
     def recover(self):
         """Recover expired workers; never issue a new target effect here."""
-        recovered = []
+        with self.transaction():
+            expired = self._expire_unstarted()
+        recovered = [self.get(job) for job in expired]
         for job in self.jobs():
             if job["state"] in ("inspecting", "applying", "verifying"):
                 if job["lease_until"] and self.clock() < job["lease_until"]:

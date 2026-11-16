@@ -3,5 +3,11 @@
 !maintenance_desk/**
 !tests/
 !tests/**
+!examples/
+!examples/**
+!configs/
+!configs/**
+!research/
+!research/**
 **/__pycache__/
 **/*.pyc

@@ -1,0 +1,6 @@
+{
+  "schema": 1,
+  "services": [
+    {"id": "demo-worker", "url": "http://127.0.0.1:18797/health", "expect_status": 200, "contains": "ready"}
+  ]
+}
