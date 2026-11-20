@@ -10,6 +10,13 @@ Three local projects take a task from input to an outcome you can inspect:
 
 The code is MIT-licensed. Book text, covers, model weights and private production records are separate.
 
+## Get the book
+
+**Make Your Home Lab Do Things for You, second edition**, is available on Amazon:
+
+- [Kindle edition](https://www.amazon.com/dp/B0HS96GM7J)
+- [Paperback edition](https://www.amazon.com/dp/B0HS8T4YWT)
+
 ## Download the version used by the book
 
 Use the [book-v2.0.0 release](https://github.com/chasesaurabh/make-your-home-lab-do-things-for-you/releases/tag/book-v2.0.0). Download the named source ZIP and `SHA256SUMS.txt` for the complete labs, tests and research. Check the archive hash before extracting it. The wheel contains the application package; use the source archive for examples and research.
